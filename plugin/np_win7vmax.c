@@ -28,12 +28,13 @@
 static NPObject        *so       = NULL;
 static NPNetscapeFuncs *npnfuncs = NULL;
 static NPP              inst     = NULL;
-static LPCWSTR			fileName = TEXT("C:\\Program Copies\\AutoHotkey\\chromeextra.hwnd");
 
 /* NPN */
 
 static void logmsg(const char *msg) {
-	FILE *out = fopen("C:\\Projects\\NPAPI\\test\\npsimple\\Release\\npsimple.log", "a");
+	return; // Disabled
+
+	FILE *out = fopen("C:\\Projects\\NPAPI\\chrome-vertmax\\plugin\\Release\\debug.log", "a");
 	if(out) {
 		fputs(msg, out);
 		fclose(out);
