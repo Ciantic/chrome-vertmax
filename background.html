@@ -1,16 +1,8 @@
 <embed type="application/x-vnd-aplix-foo" id="pluginId"></embed>
 <script>
 	var plugin = document.getElementById("pluginId");
-
-    console.log("Chrome:", chrome);
     
     chrome.windows.onCreated.addListener(function (win) {
-        console.log("Window created", win);
         plugin.onWindowCreated();
     });
-    
-	//var result = plugin.HelloWorld();
-	//if (!result)
-	//	alert("no plugin");
-	//alert(plugin.getHw());
 </script> 
