@@ -1,8 +1,24 @@
 <embed type="application/x-vnd-aplix-foo" id="pluginId"></embed>
 <script>
 	var plugin = document.getElementById("pluginId");
+    var enabled = true;
+    
+    chrome.browserAction.onClicked.addListener(function (tab) {
+        enabled = !enabled;
+        
+        if (enabled) {
+            chrome.browserAction.setIcon({
+                "path" : "icon.png"
+            });
+        } else {
+            chrome.browserAction.setIcon({
+                "path" : "icon_disabled.png"
+            });
+        }
+    });
     
     chrome.windows.onCreated.addListener(function (win) {
-        plugin.onWindowCreated();
+        if (enabled)
+            plugin.onWindowCreated();
     });
 </script> 
