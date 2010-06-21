@@ -18,7 +18,8 @@
     });
     
     chrome.windows.onCreated.addListener(function (win) {
-        if (enabled)
+		// Vertical maximize only normal windows
+        if (enabled && win.type == 'normal')
             plugin.onWindowCreated();
     });
 </script> 
