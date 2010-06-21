@@ -1,4 +1,17 @@
-/* ***** BEGIN LICENSE BLOCK *****
+/* 
+ * Chrome Vertical maximize extension plugin.
+ * http://github.com/Ciantic/chrome-vertmax
+ * (C) Jari Pennanen, 2010.
+ * Licensed as FreeBSD, see LICENSE.rst
+ *
+ * This file contains a lot of NPAPI boiler plate code, if you are solely 
+ * interested on the method I use for vertical maximizing then jump to 
+ * "Do vertical maximize"
+ *
+ * Following license is for 'npsimple', the NPAPI example which this plugin 
+ * is based on:
+ * 
+ * ***** BEGIN LICENSE BLOCK *****
  * (C)opyright 2008-2009 Aplix Corporation. anselm@aplixcorp.com
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
@@ -50,33 +63,7 @@ hasMethod(NPObject* obj, NPIdentifier methodName) {
 static bool
 invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant *result) {
 	logmsg("npsimple: invokeDefault\n");
-	result->type = NPVariantType_Int32;
-	result->value.intValue = 42;
 	return true;
-}
-
-static void PressKey(uint vk) {
-	INPUT* key = new INPUT();
-	key->type = INPUT_KEYBOARD;
-	key->ki.wVk = vk;
-	key->ki.dwFlags = 0;
-	key->ki.time = 0;
-	key->ki.wScan = 0;
-	key->ki.dwExtraInfo = GetMessageExtraInfo();
-
-	SendInput(1, key, sizeof(INPUT));
-}
-
-static void ReleaseKey(uint vk) {
-	INPUT* key = new INPUT();
-	key->type = INPUT_KEYBOARD;
-	key->ki.wVk = vk;
-	key->ki.dwFlags = KEYEVENTF_KEYUP;
-	key->ki.time = 0;
-	key->ki.wScan = 0;
-	key->ki.dwExtraInfo = GetMessageExtraInfo();
-
-	SendInput(1, key, sizeof(INPUT));
 }
 
 static bool
@@ -86,11 +73,17 @@ invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t a
 	char *name = npnfuncs->utf8fromidentifier(methodName);
 	if(name) {
 		if(!strcmp(name, "onWindowCreated")) {
-
+			
+			// Do vertical maximize
 			Sleep(50); // Window is not active just yet
 			HWND active = GetForegroundWindow();
 			PostMessage((HWND) active, WM_NCLBUTTONDBLCLK, HTTOP, 0);
 
+			// Returns true
+			result->type = NPVariantType_Bool;
+			result->value.boolValue = 1;
+
+			// Accept sending the value
 			return invokeDefault(obj, args, argCount, result);
 		} 
 	}
@@ -152,11 +145,11 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 		return NPERR_GENERIC_ERROR;
 	case NPPVpluginNameString:
 		logmsg("npsimple: getvalue - name string\n");
-		*((char **)value) = "AplixFooPlugin";
+		*((char **)value) = "VertMax for Windows7";
 		break;
 	case NPPVpluginDescriptionString:
 		logmsg("npsimple: getvalue - description string\n");
-		*((char **)value) = "<a href=\"http://www.aplix.co.jp/\">AplixFooPlugin</a> plugin.";
+		*((char **)value) = "<a href=\"http://github.com/Ciantic/chrome-vertmax\">VertMax for Windows7</a> plugin.";
 		break;
 	case NPPVpluginScriptableNPObject:
 		logmsg("npsimple: getvalue - scriptable object\n");
