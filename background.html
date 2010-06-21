@@ -2,6 +2,9 @@
 <script>
 	var plugin = document.getElementById("pluginId");
     var enabled = true;
+	
+	// Maximize new instance of chrome too
+	plugin.onWindowCreated();
     
     chrome.browserAction.onClicked.addListener(function (tab) {
         enabled = !enabled;
