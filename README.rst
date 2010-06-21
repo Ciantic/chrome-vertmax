@@ -2,7 +2,7 @@
 chrome-vertmax
 ==============
 
-Chrome extension that vertical mazimize newly created windows under Windows 7.
+Chrome extension that vertical maximizes newly created windows under *Windows 7*.
 
 Based on ``npsimple`` NPAPI example.
 
