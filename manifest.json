@@ -12,6 +12,7 @@
         "default_icon": "icon.png",
         "default_title": "VertMax W7"
     },
+	"update_url": "http://ciantic.github.com/chrome-vertmax/updates.xml",
     "permissions" : ["tabs"],
     "plugins": [
         { "path": "plugin/Release/np_win7vmax.dll" }
