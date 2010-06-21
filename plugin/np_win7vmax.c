@@ -225,7 +225,7 @@ OSCALL NP_Shutdown() {
 char *
 NP_GetMIMEDescription(void) {
 	logmsg("npsimple: NP_GetMIMEDescription\n");
-	return "application/x-vertical-maximize:.foo:jari.pennanen@gmail.com";
+	return "application/x-vertmax::jari.pennanen@gmail.com";
 }
 
 NPError OSCALL /* needs to be present for WebKit based browsers */

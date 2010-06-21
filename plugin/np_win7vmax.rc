@@ -7,14 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#ifndef _WIN32_WCE
-#include <winresrc.h>
-#else // _WIN32_WCE
-#include <dlgs.h>
-#include <winbase.h>
-#include <commctrl.h>
-#include <resdefce.h>
-#endif // _WIN32_WCE 
+#include "winresrc.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -34,8 +27,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 0,1,1,0
+ PRODUCTVERSION 0,1,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -50,17 +43,15 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", " Aplix Corporation"
-            VALUE "FileDescription", "0.3"
-            VALUE "FileExtents", "foo"
-            VALUE "FileOpenName", "Aplix Foo Plugin"
-            VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "AplixFooPlugin"
-            VALUE "LegalCopyright", "Copyright 2008 Aplix Corporation."
-            VALUE "MIMEType", "application/x-vnd-aplix-foo"
-            VALUE "OriginalFilename", "npsimple.dll"
-            VALUE "ProductName", "Aplix Foo Plugin"
-            VALUE "ProductVersion", "1, 0, 0, 3"
+            VALUE "FileDescription", "Vertical maximizes the new Chrome windows."
+            VALUE "FileOpenName", "VertMax W7"
+            VALUE "FileVersion", "0, 1, 1, 0"
+            VALUE "InternalName", "VertMax"
+            VALUE "LegalCopyright", "Copyright 2010 Jari Pennanen"
+            VALUE "MIMEType", "application/x-vertmax"
+            VALUE "OriginalFilename", "np_win7vmax.dll"
+            VALUE "ProductName", "VertMax W7 Plugin"
+            VALUE "ProductVersion", "0, 1, 1, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -68,6 +59,7 @@ BEGIN
         VALUE "Translation", 0x409, 1252
     END
 END
+
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -98,11 +90,13 @@ END
 /////////////////////////////////////////////////////////////////////////////
 
 
+
 #ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
+
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
