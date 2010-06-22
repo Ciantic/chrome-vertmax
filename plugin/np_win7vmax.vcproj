@@ -208,7 +208,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(InputDir)\xulrunner-sdk\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(InputDir)xulrunner-sdk\include&quot;"
 				PreprocessorDefinitions="XULRUNNER_SDK;WIN32;_DEBUG;_WINDOWS;XP_WIN32;MOZILLA_STRICT_API;XPCOM_GLUE;XP_WIN;_X86_;np_win7vmax_EXPORTS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;XULRUNNER_SDK"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
