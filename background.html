@@ -1,10 +1,10 @@
 <embed type="application/x-vertmax" id="pluginId"></embed>
 <script>
-	var plugin = document.getElementById("pluginId");
+    var plugin = document.getElementById("pluginId");
     var enabled = true;
-	
-	// Maximize new instance of chrome too
-	plugin.onWindowCreated();
+    
+    // Maximize new instance of chrome too
+    plugin.onWindowCreated();
     
     chrome.browserAction.onClicked.addListener(function (tab) {
         enabled = !enabled;
@@ -21,7 +21,7 @@
     });
     
     chrome.windows.onCreated.addListener(function (win) {
-		// Vertical maximize only normal windows
+        // Vertical maximize only normal windows
         if (enabled && win.type == 'normal')
             plugin.onWindowCreated();
     });
