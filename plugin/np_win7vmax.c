@@ -44,35 +44,41 @@ static NPP              inst     = NULL;
 
 /* NPN */
 
-static void logmsg(const char *msg) {
+static void logmsg(char *fmt, ...) {
 	return; // Disabled
 
 	FILE *out = fopen("C:\\Projects\\NPAPI\\chrome-vertmax\\plugin\\Release\\debug.log", "a");
 	if(out) {
-		fputs(msg, out);
+		va_list args;
+		va_start( args, fmt );
+		vfprintf( out, fmt, args );
+		fprintf( out, "\n" );
+		va_end( args );
 		fclose(out);
 	}
 }
 
+
 static bool
 hasMethod(NPObject* obj, NPIdentifier methodName) {
-	logmsg("npsimple: hasMethod\n");
+	logmsg("npsimple: hasMethod");
 	return true;
 }
 
 static bool
 invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-	logmsg("npsimple: invokeDefault\n");
+	logmsg("npsimple: invokeDefault");
 	return true;
 }
 
 static bool
 invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-	logmsg("npsimple: invoke\n");
+	logmsg("npsimple: invoke");
 	int error = 1;
 	char *name = npnfuncs->utf8fromidentifier(methodName);
 	if(name) {
 		if(!strcmp(name, "onWindowCreated")) {
+
 			
 			// Do vertical maximize
 			Sleep(50); // Window is not active just yet
@@ -94,13 +100,13 @@ invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t a
 
 static bool
 hasProperty(NPObject *obj, NPIdentifier propertyName) {
-	logmsg("npsimple: hasProperty\n");
+	logmsg("npsimple: hasProperty");
 	return false;
 }
 
 static bool
 getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result) {
-	logmsg("npsimple: getProperty\n");
+	logmsg("npsimple: getProperty");
 	return false;
 }
 
@@ -123,7 +129,7 @@ static NPClass npcRefObject = {
 static NPError
 nevv(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char *argn[], char *argv[], NPSavedData *saved) {
 	inst = instance;
-	logmsg("npsimple: new\n");
+	logmsg("npsimple: new");
 	return NPERR_NO_ERROR;
 }
 
@@ -132,7 +138,7 @@ destroy(NPP instance, NPSavedData **save) {
 	if(so)
 		npnfuncs->releaseobject(so);
 	so = NULL;
-	logmsg("npsimple: destroy\n");
+	logmsg("npsimple: destroy");
 	return NPERR_NO_ERROR;
 }
 
@@ -141,25 +147,25 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 	inst = instance;
 	switch(variable) {
 	default:
-		logmsg("npsimple: getvalue - default\n");
+		logmsg("npsimple: getvalue - default");
 		return NPERR_GENERIC_ERROR;
 	case NPPVpluginNameString:
-		logmsg("npsimple: getvalue - name string\n");
+		logmsg("npsimple: getvalue - name string");
 		*((char **)value) = "VertMax for Windows7";
 		break;
 	case NPPVpluginDescriptionString:
-		logmsg("npsimple: getvalue - description string\n");
+		logmsg("npsimple: getvalue - description string");
 		*((char **)value) = "<a href=\"http://github.com/Ciantic/chrome-vertmax\">VertMax for Windows7</a> plugin.";
 		break;
 	case NPPVpluginScriptableNPObject:
-		logmsg("npsimple: getvalue - scriptable object\n");
+		logmsg("npsimple: getvalue - scriptable object");
 		if(!so)
 			so = npnfuncs->createobject(instance, &npcRefObject);
 		npnfuncs->retainobject(so);
 		*(NPObject **)value = so;
 		break;
 	case NPPVpluginNeedsXEmbed:
-		logmsg("npsimple: getvalue - xembed\n");
+		logmsg("npsimple: getvalue - xembed");
 		*((PRBool *)value) = PR_FALSE;
 		break;
 	}
@@ -169,14 +175,14 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 static NPError /* expected by Safari on Darwin */
 handleEvent(NPP instance, void *ev) {
 	inst = instance;
-	logmsg("npsimple: handleEvent\n");
+	logmsg("npsimple: handleEvent");
 	return NPERR_NO_ERROR;
 }
 
 static NPError /* expected by Opera */
 setWindow(NPP instance, NPWindow* pNPWindow) {
 	inst = instance;
-	logmsg("npsimple: setWindow\n");
+	logmsg("npsimple: setWindow");
 	return NPERR_NO_ERROR;
 }
 
@@ -187,7 +193,7 @@ extern "C" {
 
 NPError OSCALL
 NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
-	logmsg("npsimple: NP_GetEntryPoints\n");
+	logmsg("npsimple: NP_GetEntryPoints");
 	nppfuncs->version       = (NP_VERSION_MAJOR << 8) | NP_VERSION_MINOR;
 	nppfuncs->newp          = nevv;
 	nppfuncs->destroy       = destroy;
@@ -205,7 +211,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 NPError OSCALL
 NP_Initialize(NPNetscapeFuncs *npnf)
 {
-	logmsg("npsimple: NP_Initialize\n");
+	logmsg("npsimple: NP_Initialize");
 	if(npnf == NULL)
 		return NPERR_INVALID_FUNCTABLE_ERROR;
 
@@ -218,13 +224,13 @@ NP_Initialize(NPNetscapeFuncs *npnf)
 
 NPError
 OSCALL NP_Shutdown() {
-	logmsg("npsimple: NP_Shutdown\n");
+	logmsg("npsimple: NP_Shutdown");
 	return NPERR_NO_ERROR;
 }
 
 char *
 NP_GetMIMEDescription(void) {
-	logmsg("npsimple: NP_GetMIMEDescription\n");
+	logmsg("npsimple: NP_GetMIMEDescription");
 	return "application/x-vertmax::jari.pennanen@gmail.com";
 }
 
